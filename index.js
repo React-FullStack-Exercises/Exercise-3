@@ -1,8 +1,12 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require("cors");
 const app = express()
 
 app.use(express.json())
+app.use(cors())
+app.use(express.static("build"));
+
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
@@ -50,7 +54,6 @@ app.get('/api/persons', (request, response) => {
 })
 
 
-
 app.get('/info', (request, response) => {
     const totalPersons = persons.length
     const currentTime = new Date()
@@ -59,6 +62,10 @@ app.get('/info', (request, response) => {
         <p>${currentTime}</p>
         `
     )
+})
+
+app.get('/', (request, response) => {
+    response.json(persons)
 })
 
 // PUT requests
@@ -94,8 +101,14 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+///////  catching requests made to non-existent routes
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: "unknown endpoint" });
+  };
+  app.use(unknownEndpoint);
+
 // Running server
-const PORT = 3003
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port the ${PORT}`)
 })
