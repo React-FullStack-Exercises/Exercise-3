@@ -1,5 +1,5 @@
 {
-  "name": "exercises-3.1.-3.6",
+  "name": "exercise-3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,9 @@
     "dev": "nodemon index.js",
     "build:ui": "del build && cd ../phonebook_frontend && npm run build && robocopy build ../backend/build /s",
     "deploy": "npm run build:ui && npm start dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +22,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "eslint": "^8.29.0"
+  }
 }

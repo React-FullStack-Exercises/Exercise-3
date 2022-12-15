@@ -1,24 +1,23 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose')
 require('dotenv').config()
-
-mongoose.set('strictQuery', false);
-
+mongoose.set('strictQuery', false)
+// eslint-disable-next-line no-undef
 const url = process.env.MONGODB_URI
-
 console.log('Connecting to.. ', url)
 mongoose.connect(url)
-.then(result => {
+  .then(_result => {
     console.log('connected to MongoDB')
-})
-.catch((error) => {
-    console.log('error connecting to MongoDB', error.message);
-})
+  })
+  .catch((error) => {
+    console.log('error connecting to MongoDB', error.message)
+  })
 
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 3,
-    
+
   },
   number: {
     type: String,
