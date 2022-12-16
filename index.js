@@ -36,7 +36,7 @@ app.get('/api/persons', (request, response) => {
 })
 
 
-app.get('/info', (request, response) => {
+app.get('/info', (request, response, next) => {
   Person.find({}).then(persons => {
     const totalPersons = persons.length
     const currentTime = new Date()
@@ -46,12 +46,14 @@ app.get('/info', (request, response) => {
         `
     )
   })
+    .catch(error => next(error))
 })
 
-app.get('/', (request, response) => {
+app.get('/', (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
+    .catch(error => next(error))
 })
 
 // PUT requests
